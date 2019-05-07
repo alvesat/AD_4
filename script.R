@@ -107,3 +107,53 @@ banco <- merge(banco_mun, IDH)
 
 
 ##Criando variavel com o número de alunos por docente
+banco$alu_doc <- banco_mun$N_Alunos/banco_mun$N_docentes
+banco$alu_doc <- round(banco$alu_doc, 2) ##arredondando valor para duas casas decimais
+
+
+#####Estatisticas descritivas
+
+mean(banco$alu_doc)
+##A média de alunos por docentes nos 185 municipios do estado é de 21,94 alunos para cada
+##docente.
+
+fivenum(banco$alu_doc)
+##O comando fivenum apresenta um sumário da variável. O menor valor de alunos para cada docente
+##no estado e de 13,71, o primeiro quartil tem um valor de 19,79 alunos por docente, a mediana da 
+##distribuicao e de 22,03, o terceiro quartil tem valor de 24,22 e o maior valor de alunos
+##para cada docente e de 30,39. Esses valores podem ser apresentados em um boxplot
+
+boxplot(banco$alu_doc, outline = TRUE)
+##por meio do boxplot, e possivel observar que nao ha valores extremos na distribuicao (outliers)
+
+###Municipio com maior numero de alunos por docente
+
+arrange(banco, desc(alu_doc)) ##Por meio desse comando é possível ordenar o banco por ordem
+##descendente da quantidade de alunos por docente. Assim, verifica-se que o municipio que
+##apresenta o maior valor de alunos por docente é Moreno, com 30,39 alunos por professor e
+##com um IDH de 0,652 (considerado um desenvolvimeno medio). O municipio possui 12916 alunos
+##e 425 docentes. De acordo com o IBGE, Moreno tem uma populacao total de 62263 pessoas.
+
+
+##Correlacao
+
+cor.test(banco$alu_doc, banco$`IDHM 2010`)
+##O valor obitido da correlacao de pearson entre a variavel com a quantidade de alunos por docente
+##e o IDH do municipio apresentou um valor quase igual a 0 (0,03), mostrando uma associacao 
+##bastante fraca entre as variaveis. Alem disso, o p-valor obtido foi de 0,641 nao sendo possivel
+##rejeitar a hipotese nula de que nao ha associacao entre as variaveis (pvalor>0,05)
+
+##Salvando banco em .rdata
+
+save(banco, file = "banco.RData")
+
+##Grafico de dispersao
+
+library("ggplot2")
+library("ggrepel")
+
+banco$idh <- banco$`IDHM 2010`##Ajustando nome da variavel IDH (criando nova variavel)
+
+ggplot(banco, aes(idh, alu_doc)) +
+  geom_point(shape = 16, size = 5, show.legend = FALSE, alpha = 0.5) +
+  theme_minimal()  ##plotando o grafico de dispersao 
