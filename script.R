@@ -150,7 +150,6 @@ save(banco, file = "banco.RData")
 ##Grafico de dispersao
 
 library("ggplot2")
-library("ggrepel")
 
 banco$idh <- banco$`IDHM 2010`##Ajustando nome da variavel IDH (criando nova variavel)
 
