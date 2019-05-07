@@ -90,7 +90,8 @@ uni_daluno$N <- 1 ##criando uma varíavel com o valor 1, que ira permitir que eu
 alun_cidade <- uni_daluno %>%
   select(N, CO_MUNICIPIO) %>%
   group_by(CO_MUNICIPIO) %>%
-  summarise(N = sum(N))   ##Com esse comando, eu somei os valores da variavel que criei anteriormente por municipio. Com isso eu tenho a quantidade de alunoss por municipio
+  summarise(N = sum(N))   ##Com esse comando, eu somei os valores da variavel que criei anteriormente por municipio. 
+##Com isso eu tenho a quantidade de alunoss por municipio
 
 
   ##renomeando as variaveis dos dois bancos criados
